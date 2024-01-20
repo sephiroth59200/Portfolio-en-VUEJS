@@ -1,0 +1,118 @@
+<template>
+
+    <transition name="modal-animation">
+        <div v-show="modalPDF" class="modal">
+            <transition name="modal-animation-inner">
+                <div v-show="modalPDF" class="modal-inner">
+                <i @click="close"  alt="">
+                <img src="../assets/Croix.png" alt=""></i>
+                <!--Modal Content-->
+                <slot />
+                <button @click="close" type="button">Fermer</button>
+                </div>
+            </transition>
+        </div>
+    </transition>
+        </template>
+    
+        <script>
+        export default{
+    props: ["modalPDF"],
+    setup(props, {emit}) {
+        const close = () => {
+            emit('close');
+        };
+        return { close };
+    },
+    
+        };
+    </script>
+    <style scoped>
+    .modal-animation-enter-active,
+    .modal-animation-leave-active{
+        transition: opacity .3s cubic-bezier(.52, .02, .19, 1.02);
+    
+    }
+    
+    .modal-animation-enter-from,
+    .modal-animation-leave-to {
+        opacity: 0;
+    }
+    
+        
+    .modal-animation-inner-enter-active{
+        transition: all .3s cubic-bezier(.52, .02, .19, 1.02) 0.15s;
+    }
+    
+    .modal-animation-inner-leave-active{
+        transition: all .3s cubic-bezier(.52, .02, .19, 1.02);
+    }
+        
+    
+    .modal-animation-inner-enter-from{
+        opacity:0;
+        transform: scale(0.8);
+    }
+    
+    .modal-animation-inner-leave-to{
+        transform: scale(0.8);
+    }
+    
+    
+    
+    img{
+        height: 25px;
+        width: 25px;
+    }
+    
+    .modal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left:0;
+        background-color:transparent;
+        backdrop-filter: blur(20px);
+    
+    
+    }
+    .modal-inner{
+        position: relative;
+        max-width: 640px;
+        width: 80%;box-shadow: 0 4px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) ;
+        background-color: #000000;
+        padding: 64px 16px;
+    
+    }
+    
+    i {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor:pointer;
+    
+    &:hover {
+        color: crimson;
+    
+    }
+    
+    }
+    button{
+    
+    padding: 20px 30px;
+    border:none;
+    font-size: 16px;
+    background-color: #ff0000;
+    color :#fff;
+    cursor: pointer;
+    
+    }
+    
+    
+    
+    
+    </style>
